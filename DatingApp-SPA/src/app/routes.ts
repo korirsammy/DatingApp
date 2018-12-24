@@ -1,3 +1,4 @@
+import { MemberEditResolver } from './_resolver/member-edit.resolver';
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { MessagesComponent } from './messages/messages.component';
@@ -7,6 +8,8 @@ import { Routes } from '@angular/router';
 import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes=[
 
@@ -19,6 +22,8 @@ export const appRoutes: Routes=[
             {    path:'members',component: MemberListComponent,resolve:{users:MemberListResolver}},
             {    path:'members/:id',component: MemberDetailComponent,
                     resolve:{user:MemberDetailResolver}},
+            {    path:'member/edit',component: MemberEditComponent,
+            resolve: {user: MemberEditResolver},canDeactivate:[PreventUnsavedChanges]},
             {    path:'messages',component: MessagesComponent},
             {    path:'lists',component: ListsComponent}
         ]
