@@ -46,4 +46,17 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
+
+  roleMatch(allowedRoles):boolean{
+    let isMatch=false;
+    const userRole= this.decodedToken.role as Array<string>;
+    allowedRoles.forEach(element => {
+      if(userRole.includes(element))
+        isMatch=true;
+        return;
+    });
+    return isMatch;
+  }
+
+
 }
